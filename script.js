@@ -8,14 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let convertedHTML = "";
 
-  function safeHTML(text) {
-    if (typeof text !== "string") return text;
-    return text
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-  }
-
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && modalOverlay.style.display === "flex") {
       modalOverlay.style.display = "none";
@@ -87,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
   submitBtn.addEventListener("click", processText);
 
   function processText() {
-    const text = safeHTML(textInput.value.trim());
+    const text = textInput.value.trim();
     if (!text) {
       alert("bro type smth");
       return;
@@ -97,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
     html = html.replace(
       /<pre><code( class="language-([^"]*)")?>([^<]+)<\/code><\/pre>/g,
       function (match, langClass, lang, code) {
-        const langAttr = lang ? ` class="language-${safeHTML(lang)}"` : "";
+        const langAttr = lang ? ` class="language-${lang}"` : "";
         return `<div class="code-block">
           <pre><code${langAttr}>${code}</code></pre>
           <button class="copy-btn">
